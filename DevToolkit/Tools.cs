@@ -4,10 +4,18 @@ using CitizenFX.Core;
 using GTA;
 using GTA.Math;
 using GTA.UI;
+using System;
+using System.IO;
 #endif
 
 namespace DevToolkit
 {
+    public enum CoordType
+    {
+        CSharp,
+        Lua
+    }
+
     /// <summary>
     /// Tools for quick access to GTA V data in both FiveM and SHVDN.
     /// </summary>
@@ -54,6 +62,35 @@ namespace DevToolkit
             Notification.Show(message);
 #elif FIVEM
             Debug.WriteLine(message);
+#endif
+        }
+
+        /// <summary>
+        /// Saves the player coordinates.
+        /// </summary>
+        public static void SaveCoords(CoordType mode)
+        {
+            // Select the correct prefix and sufix
+            string prefix = "";
+            string sufix = "";
+            switch (mode)
+            {
+                case CoordType.CSharp:
+                    prefix = "[C#] new Vector3";
+                    sufix = ";";
+                    break;
+                case CoordType.Lua:
+                    prefix = "[Lua] vector3";
+                    break;
+            }
+
+            // Get the coordenates and show them in the correct format 
+            Vector3 coords = PlayerCoords;
+            string format = $"{prefix}({coords.X}, {coords.Y}, {coords.Z}){sufix}";
+            ShowMessage(format);
+#if SINGLEPLAYER
+            // On SP, manually save it into a text file
+            File.AppendAllText("scripts\\DevToolkit.Coords.txt", format + Environment.NewLine);
 #endif
         }
     }

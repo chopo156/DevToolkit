@@ -1,9 +1,7 @@
 #if SINGLEPLAYER
 using GTA;
 using GTA.Math;
-using GTA.UI;
 using System;
-using System.IO;
 using System.Reflection;
 #elif FIVEM
 using CitizenFX.Core;
@@ -85,16 +83,16 @@ namespace DevToolkit
         [Command("cscoords")]
         public void CoordsCSCommand(int source, List<object> parameters, string raw)
         {
-            // Get the coordenates
-            Vector3 coords = Tools.PlayerCoords;
-            // Format them
-            string format = $"new Vector3({coords.X}, {coords.Y}, {coords.Z})";
-            // And show them to the user
-            Tools.ShowMessage(format);
-#if SINGLEPLAYER
-            // On SP, manually save it into a text file
-            File.AppendAllText("scripts\\DevToolkit.Coords.txt", format + Environment.NewLine);
-#endif
+            Tools.SaveCoords(CoordType.CSharp);
+        }
+
+        /// <summary>
+        /// Gets the coordenates and prints them in the Lua format (vector3).
+        /// </summary>
+        [Command("luacoords")]
+        public void CoordsLuaCommand(int source, List<object> parameters, string raw)
+        {
+            Tools.SaveCoords(CoordType.Lua);
         }
 
         /// <summary>
