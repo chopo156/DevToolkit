@@ -1,6 +1,5 @@
 #if FIVEM
 using CitizenFX.Core;
-using System;
 #elif SINGLEPLAYER
 using GTA;
 using GTA.Math;
@@ -15,18 +14,32 @@ namespace DevToolkit
     public static class Tools
     {
         /// <summary>
-        /// Gets the coordinates of the local player.
+        /// Gets the coordinates of the local player ped or vehicle.
         /// </summary>
-        /// <returns>A Vector3 with the coordinates of the player.</returns>
+        /// <returns>A Vector3 with the coordinates of the player or player vehicle.</returns>
         public static Vector3 PlayerCoords
         {
             get
             {
-#if (CLIENT || SINGLEPLAYER)
-                return Game.Player.Character.Position;
-#else
-                throw new InvalidOperationException("Player Position can't be fetched.");
-#endif
+                if (Game.Player.Character.CurrentVehicle != null)
+                {
+                    return Game.Player.Character.CurrentVehicle.Position;
+                }
+                else
+                {
+                    return Game.Player.Character.Position;
+                }
+            }
+            set
+            {
+                if (Game.Player.Character.CurrentVehicle != null)
+                {
+                    Game.Player.Character.CurrentVehicle.Position = value;
+                }
+                else
+                {
+                    Game.Player.Character.Position = value;
+                }
             }
         }
 
