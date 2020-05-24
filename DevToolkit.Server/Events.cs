@@ -3,7 +3,10 @@ using CitizenFX.Core.Native;
 
 namespace DevToolkit.Server
 {
-    public class DevToolkit : BaseScript 
+    /// <summary>
+    /// Deals with the ACL Confirmation for dangerous client events.
+    /// </summary>
+    public class Events : BaseScript 
     {
         [EventHandler("devtoolkit:setPosition")]
         public void SetPosition([FromSource]Player player, float x, float y, float z)
