@@ -16,9 +16,9 @@ namespace DevToolkit
     /// <summary>
     /// Script used by DevToolkit to provide tools.
     /// </summary>
-    public class DevToolkit : Script
+    public class Commands : Script
     {
-        public DevToolkit()
+        public Commands()
         {
 #if SINGLEPLAYER
             // For Singleplayer, we need to add the commands and ticks manually
