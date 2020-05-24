@@ -85,26 +85,15 @@ namespace DevToolkit
         [Command("cscoords")]
         public void CoordsCSCommand(int source, List<object> parameters, string raw)
         {
-#if SERVER
-            // For FiveM servers, this command can't be used
-            Debug.WriteLine("This command can't be used on Servers");
-            return;
-#endif
-
             // Get the coordenates
             Vector3 coords = Tools.PlayerCoords;
             // Format them
             string format = $"new Vector3({coords.X}, {coords.Y}, {coords.Z})";
-            // And print them in the correct format
+            // And show them to the user
+            Tools.ShowMessage(format);
 #if SINGLEPLAYER
-            // For SP, use a notification in the UI
-            Notification.Show(format);
-            // And write them into the correct file
+            // On SP, manually save it into a text file
             File.AppendAllText("scripts\\DevToolkit.Coords.txt", format + Environment.NewLine);
-#elif CLIENT
-            // For the FiveM client, print them on the console
-            // They will be saved to the client log file
-            Debug.WriteLine(format);
 #endif
         }
     }

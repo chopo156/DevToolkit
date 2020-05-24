@@ -4,6 +4,7 @@ using System;
 #elif SINGLEPLAYER
 using GTA;
 using GTA.Math;
+using GTA.UI;
 #endif
 
 namespace DevToolkit
@@ -27,6 +28,20 @@ namespace DevToolkit
                 throw new InvalidOperationException("Player Position can't be fetched.");
 #endif
             }
+        }
+
+        /// <summary>
+        /// Shows a message for the respective platform.
+        /// On FiveM, is printed on the console. For SHVDN, a notification is shown.
+        /// </summary>
+        /// <param name="message">The message to show.</param>
+        public static void ShowMessage(string message)
+        {
+#if SINGLEPLAYER
+            Notification.Show(message);
+#elif FIVEM
+            Debug.WriteLine(message);
+#endif
         }
     }
 }
