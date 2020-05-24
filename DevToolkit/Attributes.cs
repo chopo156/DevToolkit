@@ -2,6 +2,19 @@ using System;
 
 namespace DevToolkit
 {
+    /// <summary>
+    /// Specify how many parameters should be requested in SHVDN.
+    /// </summary>
+    public class ParametersAttribute : Attribute
+    {
+        public int Count { get; set; }
+
+        public ParametersAttribute(int count)
+        {
+            Count = count;
+        }
+    }
+
 #if SINGLEPLAYER
 
     /// <summary>

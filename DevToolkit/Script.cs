@@ -9,6 +9,7 @@ using System.Reflection;
 using CitizenFX.Core;
 using Script = CitizenFX.Core.BaseScript;
 #endif
+using System.Collections.Generic;
 
 namespace DevToolkit
 {
@@ -37,10 +38,41 @@ namespace DevToolkit
                 // If there is a command attribute
                 if (method.GetCustomAttribute(typeof(CommandAttribute)) is CommandAttribute command)
                 {
-                    // If the command was entered as a cheat, execute it
+                    // If the command was entered as a cheat
                     if (Game.WasCheatStringJustEntered(command.Command))
                     {
-                        method.Invoke(this, new object[0]);
+                        // Create the list of parameters
+                        List<object> userParams = new List<object>();
+
+                        // Check if we need to request parameters
+                        if (method.GetCustomAttribute(typeof(ParametersAttribute)) is ParametersAttribute parameters)
+                        {
+                            // If the number of parameters is not zero
+                            if (parameters.Count != 0)
+                            {
+                                // Start asking parameter for parameter
+                                for (int i = 0; i < parameters.Count; i++)
+                                {
+                                    // Ask for the paramter
+                                    string param = Game.GetUserInput();
+                                    // If is null, operation is cancelled
+                                    if (param == null)
+                                    {
+                                        continue;
+                                    }
+                                    // Otherwise, add it onto the list
+                                    userParams.Add(param);
+                                }
+                            }
+                        }
+
+                        // Finally, execute the command with the correct parameters
+                        method.Invoke(this, new object[]
+                        {
+                            0,
+                            userParams,
+                            command.Command + " " + string.Join(" ", userParams)
+                        });
                     }
                 }
             }
@@ -51,7 +83,7 @@ namespace DevToolkit
         /// Gets the coordenates and prints them in the C# format (Vector3).
         /// </summary>
         [Command("cscoords")]
-        public void CoordsCSCommand()
+        public void CoordsCSCommand(int source, List<object> parameters, string raw)
         {
 #if SERVER
             // For FiveM servers, this command can't be used
