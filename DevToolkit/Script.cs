@@ -96,5 +96,38 @@ namespace DevToolkit
             File.AppendAllText("scripts\\DevToolkit.Coords.txt", format + Environment.NewLine);
 #endif
         }
+
+        /// <summary>
+        /// Sets the position of the player ped or vehicle.
+        /// </summary>
+        [Command("setpos")]
+        [Parameters(3)]
+        public void SetPosCommand(int source, List<object> parameters, string raw)
+        {
+            // If there are less than 3 parameters (only possible in FiveM), notify it and return
+            if (parameters.Count < 3)
+            {
+                Tools.ShowMessage("You need to specify the X, Y and Z position");
+                return;
+            }
+
+            // Try to parse the positions
+            // If we failed, tell the user and return
+            if (!float.TryParse(parameters[0].ToString(), out float x) ||
+                !float.TryParse(parameters[1].ToString(), out float y) ||
+                !float.TryParse(parameters[2].ToString(), out float z))
+            {
+                Tools.ShowMessage("One of the parameters is not a valid float!");
+                return;
+            }
+
+            // For SHVDN, go ahead and set it
+            // For FiveM, ask the server for ACL confirmation
+#if SINGLEPLAYER
+            Tools.PlayerCoords = new Vector3(x, y, z);
+#elif FIVEM
+            TriggerServerEvent("devtoolkit:setPosition", x, y, z);
+#endif
+        }
     }
 }
