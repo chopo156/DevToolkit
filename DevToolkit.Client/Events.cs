@@ -18,5 +18,11 @@ namespace DevToolkit.Client
         {
             Tools.SpawnVehicle(model);
         }
+
+        [EventHandler("devtoolkit:deleteVehicle")]
+        public void DeleteVehicle()
+        {
+            Game.Player.Character.CurrentVehicle?.Delete();
+        }
     }
 }

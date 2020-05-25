@@ -150,5 +150,18 @@ namespace DevToolkit
             TriggerServerEvent("devtoolkit:spawnVehicle", parameters[0].ToString());
 #endif
         }
+
+        /// <summary>
+        /// Deletes the current player vehicle.
+        /// </summary>
+        [Command("dv")]
+        public void DeleteVehicleCommand(int source, List<object> parameters, string raw)
+        {
+#if SINGLEPLAYER
+            Game.Player.Character.CurrentVehicle?.Delete();
+#elif FIVEM
+            TriggerServerEvent("devtoolkit:deleteVehicle");
+#endif
+        }
     }
 }
