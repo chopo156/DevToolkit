@@ -36,5 +36,11 @@ namespace DevToolkit.Client
         {
             Tools.GiveAllWeapons();
         }
+
+        [EventHandler("devtoolkit:giveWeapon")]
+        public void GiveWeapon(string weapon)
+        {
+            Tools.GiveWeapon(weapon);
+        }
     }
 }

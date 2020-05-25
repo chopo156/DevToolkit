@@ -187,6 +187,27 @@ namespace DevToolkit
         }
 
         /// <summary>
+        /// Gives the player all of the known weapons.
+        /// </summary
+        [Command("give")]
+        [Parameters(1)]
+        public void GiveWeapon(int source, List<object> parameters, string raw)
+        {
+            // If no weapon name was specified, return
+            if (parameters.Count == 0)
+            {
+                Tools.ShowMessage("You need to specify the name of the weapon!");
+                return;
+            }
+
+#if SINGLEPLAYER
+            Tools.GiveWeapon(parameters[0].ToString());
+#elif FIVEM
+            TriggerServerEvent("devtoolkit:giveWeapon", parameters[0].ToString());
+#endif
+        }
+
+        /// <summary>
         /// Deletes the current player vehicle.
         /// </summary>
         [Command("dv")]

@@ -200,5 +200,26 @@ namespace DevToolkit
                 Game.Player.Character.Weapons.Give(weapon, 9999, false, true);
             }
         }
+
+        /// <summary>
+        /// Gives the specified weapon to the player.
+        /// </summary>
+        /// <param name="weapon">The weapon to give</param>
+        public static void GiveWeapon(string weapon)
+        {
+            // Convert the weapon name to uppercase
+            weapon = weapon.ToUpperInvariant();
+
+            // If it does not starts with the prefix, add it
+            if (!weapon.StartsWith("WEAPON_"))
+            {
+                weapon = "WEAPON_" + weapon;
+            }
+
+            // Convert it to a hash
+            Hash hash = (Hash)Game.GenerateHash(weapon);
+            // And give the weapon to the player
+            Game.Player.Character.Weapons.Give((WeaponHash)hash, 9999, true, true);
+        }
     }
 }
