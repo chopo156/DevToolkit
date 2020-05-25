@@ -138,10 +138,10 @@ namespace DevToolkit
 
             // Create the Model object
             Model model = new Model(modelName);
-            // If the model is not valid, notify the user and return
-            if (!model.IsValid)
+            // If the model is not a vehicle, notify the user and return
+            if (!model.IsVehicle)
             {
-                ShowMessage("The model specified is not valid!");
+                ShowMessage("The model specified does not exists or is not a vehicle");
                 return;
             }
 
