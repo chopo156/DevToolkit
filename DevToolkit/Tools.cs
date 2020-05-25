@@ -165,6 +165,8 @@ namespace DevToolkit
 #elif FIVEM
             API.SetPedIntoVehicle(Game.Player.Character.Handle, vehicle.Handle, -1);
 #endif
+            // And mark the vehicle as no longer needed
+            vehicle.MarkAsNoLongerNeeded();
         }
     }
 }
