@@ -30,5 +30,11 @@ namespace DevToolkit.Client
         {
             Tools.ChangePlayerModel(model);
         }
+
+        [EventHandler("devtoolkit:giveWeapons")]
+        public void GiveWeapons()
+        {
+            Tools.GiveAllWeapons();
+        }
     }
 }

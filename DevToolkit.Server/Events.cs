@@ -45,5 +45,14 @@ namespace DevToolkit.Server
                 player.TriggerEvent("devtoolkit:changeModel");
             }
         }
+
+        [EventHandler("devtoolkit:giveWeapons")]
+        public void GiveWeapons([FromSource]Player player)
+        {
+            if (API.IsPlayerAceAllowed(player.Handle, "devtoolkit.giveweapons"))
+            {
+                player.TriggerEvent("devtoolkit:giveWeapons");
+            }
+        }
     }
 }

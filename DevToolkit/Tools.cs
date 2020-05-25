@@ -7,9 +7,9 @@ using GTA;
 using GTA.Math;
 using GTA.Native;
 using GTA.UI;
-using System;
 using System.IO;
 #endif
+using System;
 using System.Threading.Tasks;
 
 namespace DevToolkit
@@ -186,6 +186,19 @@ namespace DevToolkit
 
             // Otherwise, set it for the player
             Game.Player.ChangeModel(model);
+        }
+
+        /// <summary>
+        /// Gives all of the weapons to the current player.
+        /// </summary>
+        public static void GiveAllWeapons()
+        {
+            // Iterate over the weapons and add all of them
+            // Thanks me from 2018 for this!
+            foreach (WeaponHash weapon in Enum.GetValues(typeof(WeaponHash)))
+            {
+                Game.Player.Character.Weapons.Give(weapon, 9999, false, true);
+            }
         }
     }
 }
