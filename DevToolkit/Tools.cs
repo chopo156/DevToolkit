@@ -50,6 +50,34 @@ namespace DevToolkit
                 }
             }
         }
+        /// <summary>
+        /// The heading of the player ped or player vehicle.
+        /// </summary>
+        public static float Heading
+        {
+            get
+            {
+                if (Game.Player.Character.CurrentVehicle != null)
+                {
+                    return Game.Player.Character.CurrentVehicle.Heading;
+                }
+                else
+                {
+                    return Game.Player.Character.Heading;
+                }
+            }
+            set
+            {
+                if (Game.Player.Character.CurrentVehicle != null)
+                {
+                    Game.Player.Character.CurrentVehicle.Heading = value;
+                }
+                else
+                {
+                    Game.Player.Character.Heading = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Shows a message for the respective platform.
