@@ -21,6 +21,9 @@
     <PackageReference Include="CitizenFX.Core.Server" Version="1.0.2514">
       <IncludeAssets>compile</IncludeAssets>
     </PackageReference>
+    <None Update="fxmanifest.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
