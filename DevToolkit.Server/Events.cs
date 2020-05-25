@@ -42,7 +42,7 @@ namespace DevToolkit.Server
         {
             if (API.IsPlayerAceAllowed(player.Handle, "devtoolkit.changemodel"))
             {
-                player.TriggerEvent("devtoolkit:changeModel");
+                player.TriggerEvent("devtoolkit:changeModel", model);
             }
         }
 
