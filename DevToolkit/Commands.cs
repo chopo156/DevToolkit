@@ -8,6 +8,7 @@ using CitizenFX.Core;
 using Script = CitizenFX.Core.BaseScript;
 #endif
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace DevToolkit
 {
@@ -232,5 +233,16 @@ namespace DevToolkit
             TriggerServerEvent("devtoolkit:fixVehicle");
 #endif
         }
+
+#if SINGLEPLAYER
+        /// <summary>
+        /// Terminates the game.
+        /// </summary>
+        [Command("quit")]
+        public void QuitCommand(int source, List<object> parameters, string raw)
+        {
+            Process.Start("taskkill", "/IM GTA5.exe /F");
+        }
+#endif
     }
 }
