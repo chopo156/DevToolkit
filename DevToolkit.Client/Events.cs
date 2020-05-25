@@ -48,5 +48,11 @@ namespace DevToolkit.Client
         {
             Game.Player.Character.CurrentVehicle?.Repair();
         }
+
+        [EventHandler("devtoolkit:playSound")]
+        public void PlaySound(string sound, string bank)
+        {
+            Tools.PlaySound(sound, bank);
+        }
     }
 }

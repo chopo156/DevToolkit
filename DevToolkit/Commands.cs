@@ -2,13 +2,14 @@
 using GTA;
 using GTA.Math;
 using System;
+using System.Diagnostics;
 using System.Reflection;
 #elif FIVEM
 using CitizenFX.Core;
+using CitizenFX.Core.Native;
 using Script = CitizenFX.Core.BaseScript;
 #endif
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace DevToolkit
 {
@@ -231,6 +232,28 @@ namespace DevToolkit
             Game.Player.Character.CurrentVehicle?.Repair();
 #elif FIVEM
             TriggerServerEvent("devtoolkit:fixVehicle");
+#endif
+        }
+
+        /// <summary>
+        /// Plays a specific sound from a specific bank.
+        /// </summary>
+        [Command("playsound")]
+        [Parameters(2)]
+        public void PlaySoundCommand(int source, List<object> parameters, string raw)
+        {
+            // If the user forgot to enter the bank or sound, return
+            if (parameters.Count < 2)
+            {
+                Tools.ShowMessage("You need to specify the audio name and bank!");
+                return;
+            }
+
+            // Otherwise trigger the sound
+#if SINGLEPLAYER
+            Tools.PlaySound(parameters[0].ToString(), parameters[1].ToString());
+#elif FIVEM
+            TriggerServerEvent("devtoolkit:playSound", parameters[0].ToString(), parameters[1].ToString());
 #endif
         }
 

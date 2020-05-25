@@ -221,5 +221,19 @@ namespace DevToolkit
             // And give the weapon to the player
             Game.Player.Character.Weapons.Give((WeaponHash)hash, 9999, true, true);
         }
+
+        /// <summary>
+        /// Plays a specific sound.
+        /// </summary>
+        /// <param name="sound">The sound to play.</param>
+        /// <param name="bank">The bank where this sound is.</param>
+        public static void PlaySound(string sound, string bank)
+        {
+#if SINGLEPLAYER
+            Function.Call(Hash.PLAY_SOUND_FRONTEND, -1, sound, bank, 0);
+#elif FIVEM
+            API.PlaySoundFrontend(-1, sound, bank, false);
+#endif
+        }
     }
 }

@@ -72,5 +72,14 @@ namespace DevToolkit.Server
                 player.TriggerEvent("devtoolkit:fixVehicle");
             }
         }
+
+        [EventHandler("devtoolkit:playSound")]
+        public void PlaySound([FromSource]Player player, string sound, string bank)
+        {
+            if (API.IsPlayerAceAllowed(player.Handle, "devtoolkit.playsound"))
+            {
+                player.TriggerEvent("devtoolkit:playSound", sound, bank);
+            }
+        }
     }
 }
