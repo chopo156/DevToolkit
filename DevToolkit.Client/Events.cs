@@ -24,5 +24,11 @@ namespace DevToolkit.Client
         {
             Game.Player.Character.CurrentVehicle?.Delete();
         }
+
+        [EventHandler("devtoolkit:changeModel")]
+        public void ChangeModel(string model)
+        {
+            Tools.ChangePlayerModel(model);
+        }
     }
 }

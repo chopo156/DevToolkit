@@ -152,6 +152,28 @@ namespace DevToolkit
         }
 
         /// <summary>
+        /// Changes the model of the player ped.
+        /// </summary>
+        [Command("model")]
+        [Parameters(1)]
+        public void ModelCommand(int source, List<object> parameters, string raw)
+        {
+            // If no model name was specified, return
+            if (parameters.Count == 0)
+            {
+                Tools.ShowMessage("You need to specify a model name!");
+                return;
+            }
+
+            // Then, change the player model directly on singleplayer or ask the server on FiveM
+#if SINGLEPLAYER
+            Tools.ChangePlayerModel(parameters[0].ToString());
+#elif FIVEM
+            TriggerServerEvent("devtoolkit:changeModel", parameters[0].ToString());
+#endif
+        }
+
+        /// <summary>
         /// Deletes the current player vehicle.
         /// </summary>
         [Command("dv")]

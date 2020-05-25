@@ -36,5 +36,14 @@ namespace DevToolkit.Server
                 player.TriggerEvent("devtoolkit:deleteVehicle");
             }
         }
+
+        [EventHandler("devtoolkit:changeModel")]
+        public void ChangeModel([FromSource]Player player, string model)
+        {
+            if (API.IsPlayerAceAllowed(player.Handle, "devtoolkit.changemodel"))
+            {
+                player.TriggerEvent("devtoolkit:changeModel");
+            }
+        }
     }
 }

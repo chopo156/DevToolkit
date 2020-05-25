@@ -168,5 +168,24 @@ namespace DevToolkit
             // And mark the vehicle as no longer needed
             vehicle.MarkAsNoLongerNeeded();
         }
+
+        /// <summary>
+        /// Changes the player model to the one specified.
+        /// </summary>
+        /// <param name="model">The model to change.</param>
+        public static void ChangePlayerModel(string modelName)
+        {
+            // Create the Model object
+            Model model = new Model(modelName);
+            // If the model is not a ped, notify the user and return
+            if (!model.IsPed)
+            {
+                ShowMessage("The model specified does not exists or is not a ped");
+                return;
+            }
+
+            // Otherwise, set it for the player
+            Game.Player.ChangeModel(model);
+        }
     }
 }
