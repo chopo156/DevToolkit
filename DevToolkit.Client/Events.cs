@@ -12,5 +12,11 @@ namespace DevToolkit.Client
         {
             Tools.PlayerCoords = new Vector3(x, y, z);
         }
+
+        [EventHandler("devtoolkit:spawnVehicle")]
+        public void SpawnVehicle(string model)
+        {
+            Tools.SpawnVehicle(model);
+        }
     }
 }

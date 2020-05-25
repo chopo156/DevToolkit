@@ -128,5 +128,27 @@ namespace DevToolkit
             TriggerServerEvent("devtoolkit:setPosition", x, y, z);
 #endif
         }
+
+        /// <summary>
+        /// Spawns a vehicle for the player.
+        /// </summary>
+        [Command("spawn")]
+        [Parameters(1)]
+        public void SpawnCommand(int source, List<object> parameters, string raw)
+        {
+            // If no model name was specified, return
+            if (parameters.Count == 0)
+            {
+                Tools.ShowMessage("You need to specify a model name!");
+                return;
+            }
+
+            // Then, spawn the vehicle directly on singleplayer or ask the server on FiveM
+#if SINGLEPLAYER
+            Tools.SpawnVehicle(parameters[0].ToString());
+#elif FIVEM
+            TriggerServerEvent("devtoolkit:spawnVehicle", parameters[0].ToString());
+#endif
+        }
     }
 }

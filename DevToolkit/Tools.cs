@@ -1,12 +1,16 @@
 #if FIVEM
 using CitizenFX.Core;
+using CitizenFX.Core.Native;
+using System.Data;
 #elif SINGLEPLAYER
 using GTA;
 using GTA.Math;
+using GTA.Native;
 using GTA.UI;
 using System;
 using System.IO;
 #endif
+using System.Threading.Tasks;
 
 namespace DevToolkit
 {
@@ -119,6 +123,47 @@ namespace DevToolkit
 #if SINGLEPLAYER
             // On SP, manually save it into a text file
             File.AppendAllText("scripts\\DevToolkit.Coords.txt", format + Environment.NewLine);
+#endif
+        }
+
+        /// <summary>
+        /// Spawns a vehicle and places the player on the driver seat.
+        /// </summary>
+        /// <param name="model">The vehicle model to use.</param>
+        /// <returns>The vehicle created, null otherwise.</returns>
+        public static async Task SpawnVehicle(string modelName)
+        {
+            // If the player is using a vehicle, delete it
+            Game.Player.Character.CurrentVehicle?.Delete();
+
+            // Create the Model object
+            Model model = new Model(modelName);
+            // If the model is not valid, notify the user and return
+            if (!model.IsValid)
+            {
+                ShowMessage("The model specified is not valid!");
+                return;
+            }
+
+            // Try to create the vehicle
+#if SINGLEPLAYER
+            Vehicle vehicle = World.CreateVehicle(model, PlayerCoords, Heading);
+#elif FIVEM
+            Vehicle vehicle = await World.CreateVehicle(model, PlayerCoords, Heading);
+#endif
+
+            // If the vehicle is invalid, return
+            if (vehicle == null)
+            {
+                ShowMessage("Unable to create the vehicle");
+                return;
+            }
+
+            // Otherwise, set the player in the driver seat
+#if SINGLEPLAYER
+            Function.Call(Hash.SET_PED_INTO_VEHICLE, Game.Player.Character.Handle, vehicle.Handle, -1);
+#elif FIVEM
+            API.SetPedIntoVehicle(Game.Player.Character.Handle, vehicle.Handle, -1);
 #endif
         }
     }

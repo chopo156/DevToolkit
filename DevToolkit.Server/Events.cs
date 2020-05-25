@@ -17,5 +17,15 @@ namespace DevToolkit.Server
                 player.TriggerEvent("devtoolkit:setPosition", x, y, z);
             }
         }
+
+        [EventHandler("devtoolkit:spawnVehicle")]
+        public void SetPosition([FromSource]Player player, string model)
+        {
+            // If the player has permission to spawn a vehicle, do it
+            if (API.IsPlayerAceAllowed(player.Handle, "devtoolkit.spawnvehicle"))
+            {
+                player.TriggerEvent("devtoolkit:spawnVehicle", model);
+            }
+        }
     }
 }
