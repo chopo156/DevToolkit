@@ -63,5 +63,14 @@ namespace DevToolkit.Server
                 player.TriggerEvent("devtoolkit:giveWeapon", weapon);
             }
         }
+
+        [EventHandler("devtoolkit:fixVehicle")]
+        public void FixVehicle([FromSource]Player player)
+        {
+            if (API.IsPlayerAceAllowed(player.Handle, "devtoolkit.fixvehicle"))
+            {
+                player.TriggerEvent("devtoolkit:fixVehicle");
+            }
+        }
     }
 }

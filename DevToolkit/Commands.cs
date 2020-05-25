@@ -219,5 +219,18 @@ namespace DevToolkit
             TriggerServerEvent("devtoolkit:deleteVehicle");
 #endif
         }
+
+        /// <summary>
+        /// Repairs the current player vehicle.
+        /// </summary>
+        [Command("fix")]
+        public void FixVehicleCommand(int source, List<object> parameters, string raw)
+        {
+#if SINGLEPLAYER
+            Game.Player.Character.CurrentVehicle?.Repair();
+#elif FIVEM
+            TriggerServerEvent("devtoolkit:fixVehicle");
+#endif
+        }
     }
 }

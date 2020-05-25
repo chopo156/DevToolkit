@@ -42,5 +42,11 @@ namespace DevToolkit.Client
         {
             Tools.GiveWeapon(weapon);
         }
+
+        [EventHandler("devtoolkit:fixVehicle")]
+        public void FixVehicle()
+        {
+            Game.Player.Character.CurrentVehicle?.Repair();
+        }
     }
 }
