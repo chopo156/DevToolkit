@@ -54,9 +54,10 @@ namespace DevToolkit
                                     // Ask for the paramter
                                     string param = Game.GetUserInput();
                                     // If is null, operation is cancelled
-                                    if (param == null)
+                                    if (string.IsNullOrWhiteSpace(param))
                                     {
-                                        continue;
+                                        Tools.ShowMessage("The command was cancelled");
+                                        return;
                                     }
                                     // Otherwise, add it onto the list
                                     userParams.Add(param);
