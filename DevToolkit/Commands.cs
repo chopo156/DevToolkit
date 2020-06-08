@@ -1,6 +1,7 @@
 #if SINGLEPLAYER
 using GTA;
 using GTA.Math;
+using GTA.Native;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -254,6 +255,50 @@ namespace DevToolkit
             Tools.PlaySound(parameters[0].ToString(), parameters[1].ToString());
 #elif FIVEM
             TriggerServerEvent("devtoolkit:playSound", parameters[0].ToString(), parameters[1].ToString());
+#endif
+        }
+
+        /// <summary>
+        /// Loads a specific IPL.
+        /// </summary>
+        [Command("iplload")]
+        [Parameters(1)]
+        public void IPLLoad(int source, List<object> args, string raw)
+        {
+            // If there are no arguments, return
+            if (args.Count == 0)
+            {
+                Tools.ShowMessage("You need to specify the IPL to load");
+                return;
+            }
+
+            // Otherwise load the IPL
+#if SINGLEPLAYER
+            Function.Call(Hash.REQUEST_IPL, args[0].ToString());
+#elif FIVEM
+            TriggerServerEvent("devtoolkit:loadIPL", args[0].ToString());
+#endif
+        }
+
+        /// <summary>
+        /// Unloads a specific IPL.
+        /// </summary>
+        [Command("iplunload")]
+        [Parameters(1)]
+        public void IPLUnload(int source, List<object> args, string raw)
+        {
+            // If there are no arguments, return
+            if (args.Count == 0)
+            {
+                Tools.ShowMessage("You need to specify the IPL to unload");
+                return;
+            }
+
+            // Otherwise unload the IPL
+#if SINGLEPLAYER
+            Function.Call(Hash.REMOVE_IPL, args[0].ToString());
+#elif FIVEM
+            TriggerServerEvent("devtoolkit:unloadIPL", args[0].ToString());
 #endif
         }
 

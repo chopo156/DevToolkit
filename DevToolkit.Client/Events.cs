@@ -1,4 +1,5 @@
 ﻿using CitizenFX.Core;
+using CitizenFX.Core.Native;
 
 namespace DevToolkit.Client
 {
@@ -53,6 +54,18 @@ namespace DevToolkit.Client
         public void PlaySound(string sound, string bank)
         {
             Tools.PlaySound(sound, bank);
+        }
+
+        [EventHandler("devtoolkit:loadIPL")]
+        public void LoadIPL(string ipl)
+        {
+            API.RequestIpl(ipl);
+        }
+
+        [EventHandler("devtoolkit:unloadIPL")]
+        public void UnloadIPL(string ipl)
+        {
+            API.RemoveIpl(ipl);
         }
     }
 }

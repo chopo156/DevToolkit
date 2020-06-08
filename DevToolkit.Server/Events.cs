@@ -81,5 +81,23 @@ namespace DevToolkit.Server
                 player.TriggerEvent("devtoolkit:playSound", sound, bank);
             }
         }
+
+        [EventHandler("devtoolkit:loadIPL")]
+        public void LoadIPL([FromSource]Player player, string ipl)
+        {
+            if (API.IsPlayerAceAllowed(player.Handle, "devtoolkit.ipl"))
+            {
+                player.TriggerEvent("devtoolkit:loadIPL", ipl);
+            }
+        }
+
+        [EventHandler("devtoolkit:unloadIPL")]
+        public void UnloadIPL([FromSource]Player player, string ipl)
+        {
+            if (API.IsPlayerAceAllowed(player.Handle, "devtoolkit.ipl"))
+            {
+                player.TriggerEvent("devtoolkit:unloadIPL", ipl);
+            }
+        }
     }
 }
