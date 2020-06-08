@@ -302,6 +302,23 @@ namespace DevToolkit
 #endif
         }
 
+        /// <summary>
+        /// Teleports the player to the marker.
+        /// </summary>
+        [Command("markertp")]
+        public void TeleportToMarker(int source, List<object> args, string raw)
+        {
+            // Select the correct entity
+            Entity entity = Game.Player.Character.CurrentVehicle as Entity ?? Game.Player.Character;
+            Vector3 pos = World.WaypointPosition;
+            // And set the position of it
+#if SINGLEPLAYER
+            entity.Position = pos;
+#elif FIVEM
+            TriggerServerEvent("devtoolkit:setPosition", pos.X, pos.Y, pos.Z);
+#endif
+        }
+
 #if SINGLEPLAYER
         /// <summary>
         /// Terminates the game.
